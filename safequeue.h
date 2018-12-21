@@ -36,7 +36,16 @@ void ThreadSafeQueue<T,SIZE>::initLocks()
     if (pthread_mutex_init(&m_syncLock, NULL) != 0)
     {
         std::cout << "mutex init failed" << std::endl;
+
     }
+}
+
+template <typename T,size_t SIZE>
+void ThreadSafeQueue<T,SIZE>::deleteLocks()
+{
+    sem_destroy(&m_pushLock);
+    sem_destroy(&m_popLock);
+    pthread_mutex_destry(&m_syncLock);
 }
 
 #endif //EXCELLENTEAM_ELLA_CONCURRENCY_SAFEQUEUE_WALL_ET_SAFEQUEUE_H
